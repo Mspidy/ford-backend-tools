@@ -16,9 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from myapp.views import TeacherDetailsListCreateAPIView
+from django.conf.urls.static import static
+from django.conf import settings
+from myapp.views import TeacherDetailsListCreateAPIView, BulkTeacherUploadView, DownloadTeacherTemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('teacher-details/', TeacherDetailsListCreateAPIView.as_view(), name='teacher-details-list-create'),
+    path('upload-teachers/', BulkTeacherUploadView.as_view(), name='upload-teachers'),
+    path('download-teacher-template/', DownloadTeacherTemplateView.as_view(), name='download-teacher-template'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
