@@ -15,13 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from myapp.views import TeacherDetailsListCreateAPIView, BulkTeacherUploadView, DownloadTeacherTemplateView
+from myapp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('auth/', include('social_django.urls', namespace='social')),
+    #path('login/', login_view, name='login'),  # Optional: custom login view
+    path('register/',UserRegisteration.as_view(), name='user-registeration'),
+    path('login/',UserLogin.as_view(), name='user-login'),
     path('teacher-details/', TeacherDetailsListCreateAPIView.as_view(), name='teacher-details-list-create'),
     path('upload-teachers/', BulkTeacherUploadView.as_view(), name='upload-teachers'),
     path('download-teacher-template/', DownloadTeacherTemplateView.as_view(), name='download-teacher-template'),
